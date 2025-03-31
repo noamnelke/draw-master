@@ -1,4 +1,4 @@
-const socket = io("http://nelke.tplinkdns.com:5050");
+const socket = io("https://draw-api.partyshow.xyz:8443");
 
 const nameInput = document.getElementById("nameInput");
 const nameList = document.getElementById("nameList");
