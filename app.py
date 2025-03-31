@@ -5,8 +5,8 @@ import time
 import uuid
 
 app = Flask(__name__)
-CORS(app, origins=["https://draw.partyshow.xyz"])
-socketio = SocketIO(app, cors_allowed_origins=["https://draw.partyshow.xyz"])
+CORS(app, origins=["https://draw.partyshow.xyz", "https://draw-master.pages.dev"])
+socketio = SocketIO(app, cors_allowed_origins=["https://draw.partyshow.xyz", "https://draw-master.pages.dev"])
 
 names = []
 draw_timer = None
