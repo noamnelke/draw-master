@@ -5,8 +5,8 @@ import time
 import uuid
 
 app = Flask(__name__)
-CORS(app, origins=["http://127.0.0.1:8080"])
-socketio = SocketIO(app, cors_allowed_origins="*")
+CORS(app, origins=["https://draw.partyshow.xyz"])
+socketio = SocketIO(app, cors_allowed_origins=["https://draw.partyshow.xyz"])
 
 names = []
 draw_timer = None
@@ -78,4 +78,4 @@ def handle_disconnect():
 
 
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", port=5050, debug=True)
+    socketio.run(app, host="0.0.0.0", port=5050, allow_unsafe_werkzeug=True)
