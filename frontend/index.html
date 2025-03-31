@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="he">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>הגרלת טורניר</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body dir="rtl">
+    <h1>הרשמה לטורניר</h1>
+    <p id="drawDateTime"></p>
+    <div id="registrationSection">
+        <p id="countdown">ההגרלה תתחיל בעוד: מחשב...</p>
+
+        <form id="registerForm">
+            <input type="text" id="nameInput" placeholder="הכנס את שמך" />
+            <button type="submit">הירשם</button>
+        </form>
+
+        <div id="pastSubmissions"></div>
+
+        <h2>נרשמים:</h2>
+        <ul id="nameList"></ul>
+    </div>
+
+    <div id="resultsSection" style="display: none;">
+        <h2>תוצאת ההגרלה:</h2>
+        <ol id="drawResult"></ol>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #222;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1,
+h2 {
+    color: #333;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 0.5rem;
+    font-size: 1rem;
+    flex-grow: 1;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #1e88e5;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #1565c0;
+}
+
+#drawDateTime {
+    text-align: center;
+}
+
+#countdown {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+ul,
+ol {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    list-style-position: inside;
+}
+
+li {
+    margin: 0.3rem 0;
+    font-size: 1.1rem;
+}
+
+#registrationSection,
+#resultsSection {
+    display: none;
+}
+
+#pastSubmissions div {
+    border-radius: 4px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    overflow: clip;
+}
+
+#pastSubmissions button {
+    border-radius: 0;
+}
+
+#pastSubmissions button.delete-btn {
+    background-color: lightgray;
+    color: black;
+    padding: 0.5rem;
+}
+
+#pastSubmissions button.delete-btn:hover {
+    background-color: darkgray;
+}
+
+#drawResult p {
+    text-align: center;
+}

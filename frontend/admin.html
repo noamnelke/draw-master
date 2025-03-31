@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    <h1>Admin Panel</h1>
+    <form id="resetForm">
+        <label>Draw in (seconds):</label>
+        <input type="number" id="delay" placeholder="e.g. 10" />
+        <button type="submit">Reset and Schedule Draw</button>
+        <hr />
+        <label>Draw at specific time:</label>
+        <input type="datetime-local" id="absoluteTime" />
+        <button type="button" onclick="setAbsoluteDraw()">Set Absolute Draw Time</button>
+    </form>
+
+    <script>
+        document.getElementById("resetForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const delay = parseInt(document.getElementById("delay").value);
+            if (!delay || delay <= 0) {
+                alert("Please enter a valid delay in seconds.");
+                return;
+            }
+
+            const drawTime = Math.floor(Date.now() / 1000) + delay;
+
+            fetch("http://localhost:5050/admin/reset", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ draw_time: drawTime })
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        return res.json().then(data => {
+                            throw new Error(data.error || "Unknown error");
+                        });
+                    }
+                })
+                .catch(err => {
+                    alert("Error: " + err.message);
+                });
+        });
+
+        function setAbsoluteDraw() {
+            const datetime = document.getElementById("absoluteTime").value;
+            if (!datetime) {
+                alert("Please select a date and time.");
+                return;
+            }
+
+            const drawTime = Math.floor(new Date(datetime).getTime() / 1000);
+            if (isNaN(drawTime) || drawTime <= Math.floor(Date.now() / 1000)) {
+                alert("Selected time must be in the future.");
+                return;
+            }
+
+            fetch("http://localhost:5050/admin/reset", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ draw_time: drawTime })
+            })
+            .then(res => {
+                if (!res.ok) {
+                    return res.json().then(data => {
+                        throw new Error(data.error || "Unknown error");
+                    });
+                }
+            })
+            .catch(err => {
+                alert("Error: " + err.message);
+            });
+        }
+    </script>
+</body>
+
+</html>
