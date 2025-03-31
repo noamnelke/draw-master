@@ -1,4 +1,4 @@
-const socket = io("http://localhost:5050");
+const socket = io("http://nelke.tplinkdns.com:5050");
 
 const nameInput = document.getElementById("nameInput");
 const nameList = document.getElementById("nameList");
