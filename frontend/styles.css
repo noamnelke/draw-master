@@ -94,3 +94,17 @@ li {
 #drawResult p {
     text-align: center;
 }
+
+#whatsappShare {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    color: #444;
+    text-decoration: none;
+}
+
+#whatsappShare:hover {
+    background-color: #25D366;
+    color: white;
+}

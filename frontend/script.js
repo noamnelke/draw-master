@@ -85,6 +85,14 @@ socket.on("draw_result", (names) => {
             drawResult.appendChild(li);
         });
     }
+
+    const whatsappShare = document.getElementById("whatsappShare");
+    const message = names.length === 0
+        ? "לא היו נרשמים להגרלה"
+        : `תוצאות ההגרלה:\n\n` + names.map((name, i) => `${i + 1}. ${name}`).join("\n");
+
+    const encodedMessage = encodeURIComponent(message);
+    whatsappShare.href = `https://wa.me/?text=${encodedMessage}`;
 });
 
 socket.on("draw_time", (drawTime) => {
