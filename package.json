@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "build": "node replace-api-url.js"
+  }
+}

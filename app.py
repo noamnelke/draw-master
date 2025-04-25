@@ -1,3 +1,4 @@
+import argparse
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO
 from flask_cors import CORS
@@ -5,8 +6,22 @@ import time
 import uuid
 
 app = Flask(__name__)
-CORS(app, origins=["https://draw.partyshow.xyz", "https://draw-master.pages.dev"])
-socketio = SocketIO(app, cors_allowed_origins=["https://draw.partyshow.xyz", "https://draw-master.pages.dev"])
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Run the Flask app.")
+    parser.add_argument(
+        "--dev", action="store_true", help="Run in development mode with permissive CORS policy."
+    )
+    return parser.parse_args()
+
+args = parse_args()
+
+if args.dev:
+    CORS(app, origins="*")
+    socketio = SocketIO(app, cors_allowed_origins="*")
+else:
+    CORS(app, origins=["https://draw.partyshow.xyz", "https://draw-master.pages.dev"])
+    socketio = SocketIO(app, cors_allowed_origins=["https://draw.partyshow.xyz", "https://draw-master.pages.dev"])
 
 names = []
 draw_timer = None

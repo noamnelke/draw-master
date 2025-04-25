@@ -20,6 +20,8 @@
     </form>
 
     <script>
+        const API_URL = "http://localhost:5050"; // Default to localhost for development
+
         document.getElementById("resetForm").addEventListener("submit", function (e) {
             e.preventDefault();
 
@@ -31,7 +33,7 @@
 
             const drawTime = Math.floor(Date.now() / 1000) + delay;
 
-            fetch("https://draw-api.partyshow.xyz:8443/admin/reset", {
+            fetch(`${API_URL}/admin/reset`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ draw_time: drawTime })
@@ -61,7 +63,7 @@
                 return;
             }
 
-            fetch("https://draw-api.partyshow.xyz:8443/admin/reset", {
+            fetch(`${API_URL}/admin/reset`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ draw_time: drawTime })

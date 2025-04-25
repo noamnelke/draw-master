@@ -1,4 +1,6 @@
-const socket = io("https://draw-api.partyshow.xyz:8443");
+const API_URL = "http://localhost:5050"; // Default to localhost for development
+
+const socket = io(API_URL);
 
 const nameInput = document.getElementById("nameInput");
 const nameList = document.getElementById("nameList");
