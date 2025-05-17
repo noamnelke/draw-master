@@ -60,9 +60,20 @@ ol {
     list-style-position: inside;
 }
 
+ul {
+    list-style-type: none;
+}
+
 li {
     margin: 0.3rem 0;
     font-size: 1.1rem;
+}
+
+ul li {
+    background-color: #eee;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin: 0.5rem 0;
 }
 
 #registrationSection,
@@ -107,4 +118,20 @@ li {
 #whatsappShare:hover {
     background-color: #25D366;
     color: white;
+}
+
+/* New styles for delete registration button */
+.delete-registration-btn {
+    background-color: #f44336;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.delete-registration-btn:hover {
+    background-color: #d32f2f;
 }

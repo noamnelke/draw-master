@@ -13,6 +13,9 @@ const pastSubmissionsContainer = document.getElementById('pastSubmissions');
 // Load past submissions from local storage
 let pastSubmissions = JSON.parse(localStorage.getItem('pastSubmissions')) || [];
 
+// Store deletion tokens for names - new addition
+let deletionTokens = JSON.parse(localStorage.getItem('deletionTokens')) || {};
+
 // Function to render past submissions as buttons
 function renderPastSubmissions() {
     pastSubmissionsContainer.innerHTML = '';
@@ -52,6 +55,18 @@ function registerName(name) {
     socket.emit("register_name", name);
 }
 
+// Function to delete a registration
+function deleteRegistration(name) {
+    if (deletionTokens[name]) {
+        socket.emit("delete_name", {
+            name: name,
+            token: deletionTokens[name]
+        });
+    } else {
+        alert("לא נמצא קוד מחיקה לרישום זה");
+    }
+}
+
 // Initial render of past submissions
 renderPastSubmissions();
 
@@ -65,11 +80,50 @@ function showResultsSection() {
     resultsSection.style.display = "block";
 }
 
+// Handle successful registration with token
+socket.on("registration_success", (data) => {
+    // Store the deletion token for this name
+    deletionTokens[data.name] = data.token;
+    localStorage.setItem('deletionTokens', JSON.stringify(deletionTokens));
+});
+
+// Handle successful deletion
+socket.on("delete_success", (data) => {
+    // Remove the token for this name
+    delete deletionTokens[data.name];
+    localStorage.setItem('deletionTokens', JSON.stringify(deletionTokens));
+});
+
 socket.on("update_names", (names) => {
     nameList.innerHTML = "";
     names.forEach((name) => {
         const li = document.createElement("li");
-        li.textContent = name;
+        
+        // Create a container for the name and delete button
+        const nameContainer = document.createElement("div");
+        nameContainer.style.display = "flex";
+        nameContainer.style.justifyContent = "space-between";
+        nameContainer.style.alignItems = "center";
+        
+        // Add the name text
+        const nameText = document.createElement("span");
+        nameText.textContent = name;
+        nameContainer.appendChild(nameText);
+        
+        // Add delete button if we have a token for this name
+        if (deletionTokens[name]) {
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "×";
+            deleteBtn.className = "delete-registration-btn";
+            deleteBtn.title = "מחק רישום";
+            deleteBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                deleteRegistration(name);
+            });
+            nameContainer.appendChild(deleteBtn);
+        }
+        
+        li.appendChild(nameContainer);
         nameList.appendChild(li);
     });
 });
