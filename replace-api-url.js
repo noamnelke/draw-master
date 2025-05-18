@@ -10,7 +10,7 @@ const productionUrl = 'https://draw-api.partyshow.xyz:8443';
 
 filesToUpdate.forEach(file => {
   let content = fs.readFileSync(file, 'utf8');
-  content = content.replace(/http:\/\/localhost:8443/g, productionUrl);
+  content = content.replace(/http:\/\/localhost:5050/g, productionUrl);
   fs.writeFileSync(file, content, 'utf8');
   console.log(`Updated API URL in ${file}`);
 });
