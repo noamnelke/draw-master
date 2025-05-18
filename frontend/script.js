@@ -16,13 +16,15 @@ let pastSubmissions = JSON.parse(localStorage.getItem('pastSubmissions')) || [];
 // Store deletion tokens for names - new addition
 let deletionTokens = JSON.parse(localStorage.getItem('deletionTokens')) || {};
 
+// Store the last draw time to detect resets
+let lastDrawTime = localStorage.getItem('lastDrawTime') ? parseFloat(localStorage.getItem('lastDrawTime')) : null;
+
 // Function to render past submissions as buttons
 function renderPastSubmissions() {
     pastSubmissionsContainer.innerHTML = '';
     pastSubmissions.forEach((name, index) => {
         const buttonContainer = document.createElement('div');
-        buttonContainer.style.display = 'inline-flex';
-        buttonContainer.style.alignItems = 'center';
+        buttonContainer.classList.add('button-container');
 
         const nameButton = document.createElement('button');
         nameButton.textContent = name;
@@ -71,13 +73,13 @@ function deleteRegistration(name) {
 renderPastSubmissions();
 
 function showRegistrationSection() {
-    registrationSection.style.display = "block";
-    resultsSection.style.display = "none";
+    registrationSection.classList.remove('hide');
+    resultsSection.classList.add('hide');
 }
 
 function showResultsSection() {
-    registrationSection.style.display = "none";
-    resultsSection.style.display = "block";
+    registrationSection.classList.add('hide');
+    resultsSection.classList.remove('hide');
 }
 
 // Handle successful registration with token
@@ -101,9 +103,7 @@ socket.on("update_names", (names) => {
         
         // Create a container for the name and delete button
         const nameContainer = document.createElement("div");
-        nameContainer.style.display = "flex";
-        nameContainer.style.justifyContent = "space-between";
-        nameContainer.style.alignItems = "center";
+        nameContainer.classList.add('name-container');
         
         // Add the name text
         const nameText = document.createElement("span");
@@ -138,6 +138,12 @@ socket.on("draw_result", (names) => {
         names.forEach((name) => {
             const li = document.createElement("li");
             li.textContent = name;
+            
+            // Highlight names that were registered by this client
+            if (deletionTokens[name]) {
+                li.classList.add('my-entry');
+            }
+            
             drawResult.appendChild(li);
         });
     }
@@ -153,6 +159,15 @@ socket.on("draw_result", (names) => {
 
 socket.on("draw_time", (drawTime) => {
     if (typeof drawTime === "number") {
+        // Clear deletion tokens only when draw time changes (i.e., on a reset)
+        // but not on regular reconnections where the same draw time is sent
+        if (lastDrawTime !== drawTime) {
+            deletionTokens = {};
+            localStorage.setItem('deletionTokens', JSON.stringify(deletionTokens));
+            lastDrawTime = drawTime;
+            localStorage.setItem('lastDrawTime', drawTime);
+        }
+        
         const drawDate = new Date(drawTime * 1000);
         const formattedDate = drawDate.toLocaleDateString("he-IL");
         const formattedTime = drawDate.toLocaleTimeString("he-IL", { hour: '2-digit', minute: '2-digit' });

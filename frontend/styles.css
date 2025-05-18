@@ -76,10 +76,11 @@ ul li {
     margin: 0.5rem 0;
 }
 
-#registrationSection,
-#resultsSection {
-    display: none;
+ol li {
+    padding-right: 10px;
 }
+
+/* Initial display state is handled by JS with show/hide classes */
 
 #pastSubmissions div {
     border-radius: 4px;
@@ -134,4 +135,38 @@ ul li {
 
 .delete-registration-btn:hover {
     background-color: #d32f2f;
+}
+
+/* New styles to replace inline styles from script.js */
+.button-container {
+    display: inline-flex;
+    align-items: center;
+}
+
+.name-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hide {
+    display: none;
+}
+
+.whatsapp-share-text {
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+.whatsapp-icon {
+    height: 20px;
+    vertical-align: middle;
+}
+
+/* Style for highlighting user's own entries in the results */
+.my-entry {
+    background-color: #e3f2fd;
+    font-weight: bold;
+    border-right: 4px solid #1e88e5;
+    padding-right: 6px;
 }

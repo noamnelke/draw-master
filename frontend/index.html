@@ -11,7 +11,7 @@
 <body dir="rtl">
     <h1>הרשמה לטורניר</h1>
     <p id="drawDateTime"></p>
-    <div id="registrationSection">
+    <div id="registrationSection" class="hide">
         <p id="countdown">ההגרלה תתחיל בעוד: מחשב...</p>
 
         <form id="registerForm">
@@ -25,13 +25,13 @@
         <ul id="nameList"></ul>
     </div>
 
-    <div id="resultsSection" style="display: none;">
+    <div id="resultsSection" class="hide">
         <h2>תוצאת ההגרלה:</h2>
         <ol id="drawResult"></ol>
         <div id="shareButtonContainer">
             <a id="whatsappShare" href="#" target="_blank">
-                <span style="font-size: 1rem; vertical-align: middle;">שתף ב־</span>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="height: 20px; vertical-align: middle;" />
+                <span class="whatsapp-share-text">שתף ב־</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon" />
             </a>
         </div>
     </div>
