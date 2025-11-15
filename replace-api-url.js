@@ -6,7 +6,7 @@ const filesToUpdate = [
   path.join(__dirname, 'frontend', 'admin.html')
 ];
 
-const productionUrl = 'https://draw-api.partyshow.xyz:8443';
+const productionUrl = 'https://draw-master.nelke.vip';
 
 filesToUpdate.forEach(file => {
   let content = fs.readFileSync(file, 'utf8');
